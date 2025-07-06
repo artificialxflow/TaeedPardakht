@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>داشبورد | سامانه مدیریت پرداخت</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+  <link href="css/custom.css" rel="stylesheet">
+</head>
+<body>
+  <!-- Navigation Bar -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom mb-4" dir="rtl">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="index.html">سامانه مدیریت پرداخت</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="تغییر منو">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="mainNavbar">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0 gap-2">
+          <li class="nav-item"><a class="nav-link active" href="index.html">داشبورد</a></li>
+          <li class="nav-item"><a class="nav-link" href="projects.html">تعریف پروژه</a></li>
+          <li class="nav-item"><a class="nav-link" href="users.html">مدیریت کاربران</a></li>
+          <li class="nav-item"><a class="nav-link" href="payment-request.html">درخواست پرداخت</a></li>
+          <li class="nav-item"><a class="nav-link" href="payment-approval.html">تایید پرداخت</a></li>
+          <li class="nav-item"><a class="nav-link" href="reports.html">گزارشات</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <div class="container py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h1 class="h4 fw-bold text-dark">داشبورد</h1>
+      <div class="text-secondary small">آخرین بروزرسانی: <span id="lastUpdate"></span></div>
+    </div>
+    <!-- Stats Cards -->
+    <div class="row g-3 mb-4">
+      <div class="col-12 col-md-6 col-lg-3">
+        <div class="bg-primary bg-opacity-10 rounded-3 p-3">
+          <div class="d-flex justify-content-between align-items-center">
+            <div>
+              <div class="text-secondary small">کل درخواست‌ها</div>
+              <div class="h5 fw-bold text-dark" id="totalRequests">5</div>
+            </div>
+            <span class="badge bg-primary p-3">📄</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-md-6 col-lg-3">
+        <div class="bg-warning bg-opacity-10 rounded-3 p-3">
+          <div class="d-flex justify-content-between align-items-center">
+            <div>
+              <div class="text-secondary small">در انتظار تایید</div>
+              <div class="h5 fw-bold text-dark" id="pendingRequests">2</div>
+            </div>
+            <span class="badge bg-warning p-3">⏳</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-md-6 col-lg-3">
+        <div class="bg-success bg-opacity-10 rounded-3 p-3">
+          <div class="d-flex justify-content-between align-items-center">
+            <div>
+              <div class="text-secondary small">تایید شده</div>
+              <div class="h5 fw-bold text-dark" id="approvedRequests">1</div>
+            </div>
+            <span class="badge bg-success p-3">✅</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-md-6 col-lg-3">
+        <div class="bg-info bg-opacity-10 rounded-3 p-3">
+          <div class="d-flex justify-content-between align-items-center">
+            <div>
+              <div class="text-secondary small">پرداخت شده</div>
+              <div class="h5 fw-bold text-dark" id="paidRequests">2</div>
+            </div>
+            <span class="badge bg-info p-3">💵</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Financial Overview & Recent Requests -->
+    <div class="row g-3 mb-4">
+      <div class="col-12 col-lg-6">
+        <div class="bg-white rounded-3 shadow-sm border p-4 h-100">
+          <h3 class="h6 fw-bold mb-3 text-dark">بررسی مالی</h3>
+          <div class="mb-2 d-flex justify-content-between align-items-center">
+            <span class="text-secondary">کل مبلغ درخواست‌ها:</span>
+            <span class="fw-bold text-dark" id="totalAmount">10,000,000 تومان</span>
+          </div>
+          <div class="mb-2 d-flex justify-content-between align-items-center">
+            <span class="text-secondary">مبلغ پرداخت شده:</span>
+            <span class="fw-bold text-success" id="paidAmount">7,000,000 تومان</span>
+          </div>
+          <div class="d-flex justify-content-between align-items-center">
+            <span class="text-secondary">باقی‌مانده:</span>
+            <span class="fw-bold text-warning" id="remainingAmount">3,000,000 تومان</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-lg-6">
+        <div class="bg-white rounded-3 shadow-sm border p-4 h-100">
+          <h3 class="h6 fw-bold mb-3 text-dark">درخواست‌های اخیر</h3>
+          <div class="vstack gap-2" id="recentRequests">
+            <div class="d-flex justify-content-between align-items-center bg-light rounded-2 p-2">
+              <div class="d-flex align-items-center gap-2">
+                <span class="badge rounded-pill me-2 bg-warning">&nbsp;</span>
+                <div>
+                  <div class="fw-medium text-dark">REQ-001</div>
+                  <div class="small text-secondary">درخواست پرداخت هزینه خرید تجهیزات...</div>
+                </div>
+              </div>
+              <div class="text-end">
+                <div class="fw-bold text-dark">1,200,000 تومان</div>
+                <div class="small text-secondary">1403/04/16</div>
+              </div>
+            </div>
+            <!-- More requests can be added here -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Quick Actions -->
+    <div class="bg-white rounded-3 shadow-sm border p-4 mb-4">
+      <h3 class="h6 fw-bold mb-3 text-dark">دسترسی سریع</h3>
+      <div class="row g-3">
+        <div class="col-12 col-md-6 col-lg-3">
+          <button class="btn btn-outline-primary w-100 py-3">
+            <span class="fs-3">📄</span>
+            <div class="fw-medium mt-2">درخواست جدید</div>
+          </button>
+        </div>
+        <div class="col-12 col-md-6 col-lg-3">
+          <button class="btn btn-outline-success w-100 py-3">
+            <span class="fs-3">✅</span>
+            <div class="fw-medium mt-2">تایید پرداخت</div>
+          </button>
+        </div>
+        <div class="col-12 col-md-6 col-lg-3">
+          <button class="btn btn-outline-info w-100 py-3">
+            <span class="fs-3">📈</span>
+            <div class="fw-medium mt-2">گزارشات</div>
+          </button>
+        </div>
+        <div class="col-12 col-md-6 col-lg-3">
+          <button class="btn btn-outline-secondary w-100 py-3">
+            <span class="fs-3">👤</span>
+            <div class="fw-medium mt-2">پروفایل</div>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/custom.js"></script>
+  <script>
+    // Set last update date
+    document.getElementById('lastUpdate').textContent = new Date().toLocaleDateString('fa-IR');
+  </script>
+</body>
+</html> 
