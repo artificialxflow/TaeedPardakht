@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Upload, X, FileText } from 'lucide-react';
 import { useData } from '../../contexts/DataContext';
 import { useAuth } from '../../contexts/AuthContext';
-import { PaymentRequest } from '../../types';
+import { PaymentRequest, Project } from '../../types';
 
 const PaymentRequestForm: React.FC = () => {
   const { projects, addPaymentRequest } = useData();
@@ -21,7 +21,7 @@ const PaymentRequestForm: React.FC = () => {
   });
   
   const [documents, setDocuments] = useState<File[]>([]);
-  const [selectedProject, setSelectedProject] = useState(projects[0] || null);
+  const [selectedProject, setSelectedProject] = useState<Project | null>(projects[0] || null);
 
   const generateRequestNumber = () => {
     const now = new Date();
